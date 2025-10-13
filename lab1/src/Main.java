@@ -1,12 +1,21 @@
+import java.time.Duration;
+import java.time.Instant;
+
 public class Main
 {
     private static final int _iterations = 1000000;
 
     public static void main(String[] args) throws InterruptedException
     {
+        var start = Instant.now();
         Unsynchronized();
+        var unsynchronizedTime = Instant.now();
         Synchronized();
+        var synchronizedTime = Instant.now();
         ThreadBenchmark();
+
+        System.out.println(Duration.between(start, unsynchronizedTime));
+        System.out.println(Duration.between(unsynchronizedTime, synchronizedTime));
     }
 
     public static void Unsynchronized() throws InterruptedException {
