@@ -47,7 +47,7 @@ public class Main
             philosophers.get(i).start();
         }
 
-        Thread.sleep(5000);
+        Thread.sleep(10000);
         for (var philosopher : philosophers)
             philosopher.interrupt();
 

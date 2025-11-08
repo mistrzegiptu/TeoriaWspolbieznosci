@@ -3,15 +3,17 @@ import java.util.List;
 
 public abstract class BasePhilosopher extends Thread
 {
-    protected final long startTime;
     protected final int id;
+    protected final int leftFork;
+    protected final int rightFork;
     protected int eatingCount = 0;
     protected List<Long> waitingTimes = new ArrayList<Long>();
 
-    public BasePhilosopher(int n)
+    public BasePhilosopher(int id, int n)
     {
-        startTime = System.currentTimeMillis();
-        id = n;
+        this.id = id;
+        leftFork = id;
+        rightFork = (id + 1) % n;
     }
 
     public int GetEatingCount()

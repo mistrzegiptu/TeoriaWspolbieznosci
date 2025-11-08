@@ -2,18 +2,14 @@ import java.util.Random;
 
 public class ArbiterPhilosopher extends BasePhilosopher
 {
-    private ArbiterTable _table;
-    private final int _leftFork;
-    private final int _rightFork;
+    private final ArbiterTable _table;
     private final int _id;
 
     public ArbiterPhilosopher(ArbiterTable table, int id, int n)
     {
-        super(id);
+        super(id, n);
         _table = table;
         _id = id;
-        _leftFork = id;
-        _rightFork = (id + 1) % n;
     }
 
 
@@ -29,7 +25,7 @@ public class ArbiterPhilosopher extends BasePhilosopher
                 Thread.sleep(random.nextInt(100));
 
                 long startTime = System.currentTimeMillis();
-                _table.TryTakingBothForks(_leftFork, _rightFork);
+                _table.TryTakingBothForks(leftFork, rightFork);
                 long endTime = System.currentTimeMillis();
                 System.out.println("Philosopher " + _id + " took both forks");
 
@@ -39,7 +35,7 @@ public class ArbiterPhilosopher extends BasePhilosopher
                 System.out.println("Philosopher " + _id + " is EATING");
                 Thread.sleep(random.nextInt(100));
 
-                _table.PlaceForksBack(_leftFork, _rightFork);
+                _table.PlaceForksBack(leftFork, rightFork);
                 System.out.println("Philosopher " + _id + " put forks back");
             }
         }

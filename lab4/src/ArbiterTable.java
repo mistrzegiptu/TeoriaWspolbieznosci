@@ -11,7 +11,7 @@ public class ArbiterTable extends AbstractTable
         MAX_EATING_AT_ONCE = philosophersCount - 1;
     }
 
-    public synchronized boolean TryTakingBothForks(int leftIndex, int rightIndex) throws InterruptedException {
+    public synchronized void TryTakingBothForks(int leftIndex, int rightIndex) throws InterruptedException {
         while (_currentlyEating >= MAX_EATING_AT_ONCE || !forks[leftIndex] || !forks[rightIndex])
         {
             wait();
@@ -20,7 +20,6 @@ public class ArbiterTable extends AbstractTable
         forks[leftIndex] = false;
         forks[rightIndex] = false;
         _currentlyEating++;
-        return true;
     }
 
     public synchronized void PlaceForksBack(int leftIndex, int rightIndex)

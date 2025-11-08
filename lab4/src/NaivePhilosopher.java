@@ -2,18 +2,14 @@ import java.util.Random;
 
 public class NaivePhilosopher extends BasePhilosopher
 {
-    private NaiveTable _table;
-    private final int _leftFork;
-    private final int _rightFork;
+    private final NaiveTable _table;
     private final int _id;
 
     public NaivePhilosopher(NaiveTable table, int id, int n)
     {
-        super(id);
+        super(id, n);
         _table = table;
         _id = id;
-        _leftFork = id;
-        _rightFork = (id + 1) % n;
     }
 
     public void run()
@@ -26,12 +22,12 @@ public class NaivePhilosopher extends BasePhilosopher
                 Thread.sleep(random.nextInt(100));
 
                 long startTime = System.currentTimeMillis();
-                _table.TakeFork(_leftFork);
-                System.out.println("Philosopher " + _id + " took left fork " + _leftFork);
+                _table.TakeFork(leftFork);
+                System.out.println("Philosopher " + _id + " took left fork " + leftFork);
 
-                _table.TakeFork(_rightFork);
+                _table.TakeFork(rightFork);
                 long endTime = System.currentTimeMillis();
-                System.out.println("Philosopher " + _id + " took right fork " + _rightFork);
+                System.out.println("Philosopher " + _id + " took right fork " + rightFork);
 
                 eatingCount++;
                 waitingTimes.add(endTime - startTime);
@@ -39,8 +35,8 @@ public class NaivePhilosopher extends BasePhilosopher
                 System.out.println("Philosopher " + _id + " is EATING");
                 Thread.sleep(random.nextInt(100));
 
-                _table.PlaceForkBack(_leftFork);
-                _table.PlaceForkBack(_rightFork);
+                _table.PlaceForkBack(leftFork);
+                _table.PlaceForkBack(rightFork);
                 System.out.println("Philosopher " + _id + " put forks back");
             }
         } catch (InterruptedException e) {
